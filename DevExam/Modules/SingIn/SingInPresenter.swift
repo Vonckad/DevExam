@@ -14,7 +14,7 @@ import UIKit
 
 protocol SingInPresentationLogic
 {
-  func presentSomething(response: SingIn.Something.Response)
+    func presentSomething(response: SingIn.Something.Response.ResponseType)
 }
 
 class SingInPresenter: SingInPresentationLogic
@@ -23,9 +23,11 @@ class SingInPresenter: SingInPresentationLogic
   
   // MARK: Do something
   
-  func presentSomething(response: SingIn.Something.Response)
+    func presentSomething(response: SingIn.Something.Response.ResponseType)
   {
-    let viewModel = SingIn.Something.ViewModel()
-    viewController?.displaySomething(viewModel: viewModel)
+      switch response {
+      case .pesentPhoneMask(let phoneMask):
+          viewController?.displaySomething(viewModel: .currentPhoneMask(phoneMask))
+      }
   }
 }

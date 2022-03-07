@@ -20,12 +20,21 @@ enum SingIn
   {
     struct Request
     {
+        enum RequestType {
+            case getPhoneMask
+        }
     }
     struct Response
     {
+        enum ResponseType {
+            case pesentPhoneMask(_ : PhoneMaskModel)
+        }
     }
     struct ViewModel
     {
+        enum viewModelData {
+            case currentPhoneMask(_ : PhoneMaskModel)
+        }
     }
   }
 }

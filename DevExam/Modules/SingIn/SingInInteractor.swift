@@ -14,7 +14,7 @@ import UIKit
 
 protocol SingInBusinessLogic
 {
-  func doSomething(request: SingIn.Something.Request)
+    func doSomething(request: SingIn.Something.Request.RequestType)
 }
 
 protocol SingInDataStore
@@ -30,12 +30,21 @@ class SingInInteractor: SingInBusinessLogic, SingInDataStore
   
   // MARK: Do something
   
-  func doSomething(request: SingIn.Something.Request)
+    func doSomething(request: SingIn.Something.Request.RequestType)
   {
     worker = SingInWorker()
     worker?.doSomeWork()
-    
-    let response = SingIn.Something.Response()
-    presenter?.presentSomething(response: response)
+      let url = URL(string: "http://dev-exam.l-tech.ru/api/v1/phone_masks")
+      URLSession.shared.dataTask(with: URLRequest(url: url!)) { data, response, error in
+          do {
+              guard let data = data else { return }
+              let jsonResult = try JSONDecoder().decode(PhoneMaskModel.self, from: data)
+              DispatchQueue.main.async { [weak self] in
+                  self?.presenter?.presentSomething(response: .pesentPhoneMask(jsonResult))
+              }
+          } catch {
+              print("ERROR!!!", error)
+          }
+      }.resume()
   }
 }

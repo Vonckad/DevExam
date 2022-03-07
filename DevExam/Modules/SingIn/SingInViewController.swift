@@ -14,7 +14,7 @@ import UIKit
 
 protocol SingInDisplayLogic: AnyObject
 {
-  func displaySomething(viewModel: SingIn.Something.ViewModel)
+    func displaySomething(viewModel: SingIn.Something.ViewModel.viewModelData)
 }
 
 class SingInViewController: UIViewController, SingInDisplayLogic
@@ -69,29 +69,35 @@ class SingInViewController: UIViewController, SingInDisplayLogic
   override func viewDidLoad()
   {
     super.viewDidLoad()
-    setupUI()
     doSomething()
-    view.backgroundColor = .cyan
+    setupUI()
+    view.backgroundColor = UIColor(red: 238/255, green: 235/255, blue: 248/255, alpha: 1)
   }
   
   // MARK: Do something
   
+    private let logoImageView = UIImageView(image: UIImage(named: "logo"))
     private let loginTextField = UITextField()
     private let passwordTextField = UITextField()
     private let singInButton = UIButton()
     
     private func setupUI() {
+        logoImageView.translatesAutoresizingMaskIntoConstraints = false
         loginTextField.translatesAutoresizingMaskIntoConstraints = false
         passwordTextField.translatesAutoresizingMaskIntoConstraints = false
         singInButton.translatesAutoresizingMaskIntoConstraints = false
         
+        view.addSubview(logoImageView)
         view.addSubview(loginTextField)
         view.addSubview(passwordTextField)
         view.addSubview(singInButton)
         let guide = view.safeAreaLayoutGuide
         
         NSLayoutConstraint.activate([
-            loginTextField.topAnchor.constraint(equalTo: guide.topAnchor, constant: 32),
+            logoImageView.topAnchor.constraint(equalTo: guide.topAnchor, constant: 16),
+            logoImageView.centerXAnchor.constraint(equalTo: guide.centerXAnchor),
+            
+            loginTextField.topAnchor.constraint(equalTo: logoImageView.bottomAnchor, constant: 32),
             loginTextField.leftAnchor.constraint(equalTo: guide.leftAnchor, constant: 16),
             loginTextField.rightAnchor.constraint(equalTo: guide.rightAnchor, constant: -16),
             
@@ -105,18 +111,30 @@ class SingInViewController: UIViewController, SingInDisplayLogic
         ])
         
         loginTextField.placeholder = "loginTextField"
+        loginTextField.keyboardType = .numberPad
         passwordTextField.placeholder = "passwordTextField"
         singInButton.backgroundColor = .brown
+        singInButton.addTarget(self, action: #selector(singIn), for: .touchUpInside)
     }
+  @objc
+    func singIn() {
+        
+    }
+    
     
   func doSomething()
   {
-    let request = SingIn.Something.Request()
-    interactor?.doSomething(request: request)
+//    let request = SingIn.Something.Request()
+      interactor?.doSomething(request: .getPhoneMask)
   }
   
-  func displaySomething(viewModel: SingIn.Something.ViewModel)
+    func displaySomething(viewModel: SingIn.Something.ViewModel.viewModelData)
   {
-    //nameTextField.text = viewModel.name
+      
+      switch viewModel {
+      case .currentPhoneMask(let phoneMask):
+          print("phoneMask.phoneMask = \(phoneMask.phoneMask)")
+          loginTextField.placeholder = phoneMask.phoneMask
+      }
   }
 }

@@ -16,6 +16,7 @@
 		E33A25E727D5D9C300F20E34 /* SingInModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = E33A25E127D5D9C300F20E34 /* SingInModels.swift */; };
 		E33A25E827D5D9C300F20E34 /* SingInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E33A25E227D5D9C300F20E34 /* SingInViewController.swift */; };
 		E33A25E927D5D9C300F20E34 /* SingInInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E33A25E327D5D9C300F20E34 /* SingInInteractor.swift */; };
+		E33A25EC27D5F74F00F20E34 /* PhoneMaskModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E33A25EB27D5F74F00F20E34 /* PhoneMaskModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +31,7 @@
 		E33A25E127D5D9C300F20E34 /* SingInModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingInModels.swift; sourceTree = "<group>"; };
 		E33A25E227D5D9C300F20E34 /* SingInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingInViewController.swift; sourceTree = "<group>"; };
 		E33A25E327D5D9C300F20E34 /* SingInInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingInInteractor.swift; sourceTree = "<group>"; };
+		E33A25EB27D5F74F00F20E34 /* PhoneMaskModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneMaskModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,6 +64,7 @@
 		E33A25C727D5D8E700F20E34 /* DevExam */ = {
 			isa = PBXGroup;
 			children = (
+				E33A25EA27D5F73500F20E34 /* Models */,
 				E33A25C827D5D8E700F20E34 /* AppDelegate.swift */,
 				E33A25DC27D5D96300F20E34 /* Modules */,
 				E33A25D127D5D8EE00F20E34 /* Assets.xcassets */,
@@ -90,6 +93,14 @@
 				E33A25E327D5D9C300F20E34 /* SingInInteractor.swift */,
 			);
 			path = SingIn;
+			sourceTree = "<group>";
+		};
+		E33A25EA27D5F73500F20E34 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				E33A25EB27D5F74F00F20E34 /* PhoneMaskModel.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -168,6 +179,7 @@
 				E33A25E527D5D9C300F20E34 /* SingInWorker.swift in Sources */,
 				E33A25E827D5D9C300F20E34 /* SingInViewController.swift in Sources */,
 				E33A25C927D5D8E700F20E34 /* AppDelegate.swift in Sources */,
+				E33A25EC27D5F74F00F20E34 /* PhoneMaskModel.swift in Sources */,
 				E33A25E627D5D9C300F20E34 /* SingInRouter.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
