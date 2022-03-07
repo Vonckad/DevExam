@@ -22,18 +22,21 @@ enum SingIn
     {
         enum RequestType {
             case getPhoneMask
+            case getFormattedPhoneNumber(String)
         }
     }
     struct Response
     {
         enum ResponseType {
             case pesentPhoneMask(_ : PhoneMaskModel)
+            case formatPhomeMask(phoneMask: PhoneMaskModel, number : String)
         }
     }
     struct ViewModel
     {
         enum viewModelData {
-            case currentPhoneMask(_ : PhoneMaskModel)
+            case currentPhoneMask(_ : String)
+            case formatedPhoneMask(_ : String)
         }
     }
   }

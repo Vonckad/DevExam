@@ -110,15 +110,16 @@ class SingInViewController: UIViewController, SingInDisplayLogic
             singInButton.centerXAnchor.constraint(equalTo: guide.centerXAnchor)
         ])
         
-        loginTextField.placeholder = "loginTextField"
         loginTextField.keyboardType = .numberPad
-        passwordTextField.placeholder = "passwordTextField"
+        loginTextField.delegate = self
+        passwordTextField.placeholder = "password"
         singInButton.backgroundColor = .brown
         singInButton.addTarget(self, action: #selector(singIn), for: .touchUpInside)
     }
   @objc
     func singIn() {
-        
+        loginTextField.resignFirstResponder()
+        passwordTextField.resignFirstResponder()
     }
     
     
@@ -132,8 +133,18 @@ class SingInViewController: UIViewController, SingInDisplayLogic
       
       switch viewModel {
       case .currentPhoneMask(let phoneMask):
-          print("phoneMask.phoneMask = \(phoneMask.phoneMask)")
-          loginTextField.placeholder = phoneMask.phoneMask
+          loginTextField.placeholder = phoneMask
+      case .formatedPhoneMask(let number):
+          loginTextField.text = number
       }
   }
+}
+
+extension SingInViewController: UITextFieldDelegate {
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        guard let text = textField.text else { return false }
+        let newString = (text as NSString).replacingCharacters(in: range, with: string)
+        interactor?.formattedNumber(number: .getFormattedPhoneNumber(newString))
+        return false
+    }
 }

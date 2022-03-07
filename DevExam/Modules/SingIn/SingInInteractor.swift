@@ -11,22 +11,24 @@
 //
 
 import UIKit
+import Alamofire
 
 protocol SingInBusinessLogic
 {
     func doSomething(request: SingIn.Something.Request.RequestType)
+    func formattedNumber(number: SingIn.Something.Request.RequestType)
 }
 
 protocol SingInDataStore
 {
-  //var name: String { get set }
+  var phoneMaskModel: PhoneMaskModel { get set }
 }
 
 class SingInInteractor: SingInBusinessLogic, SingInDataStore
 {
   var presenter: SingInPresentationLogic?
   var worker: SingInWorker?
-  //var name: String = ""
+    var phoneMaskModel = PhoneMaskModel(phoneMask: "")
   
   // MARK: Do something
   
@@ -35,19 +37,27 @@ class SingInInteractor: SingInBusinessLogic, SingInDataStore
     worker = SingInWorker()
     worker?.doSomeWork()
       
-      // переделать под Alamofire
-      
-      let url = URL(string: "http://dev-exam.l-tech.ru/api/v1/phone_masks")
-      URLSession.shared.dataTask(with: URLRequest(url: url!)) { data, response, error in
-          do {
-              guard let data = data else { return }
-              let jsonResult = try JSONDecoder().decode(PhoneMaskModel.self, from: data)
-              DispatchQueue.main.async { [weak self] in
-                  self?.presenter?.presentSomething(response: .pesentPhoneMask(jsonResult))
+      AF.request("http://dev-exam.l-tech.ru/api/v1/phone_masks").validate()
+          .responseDecodable(of: PhoneMaskModel.self) { response in
+              switch response.result {
+              case .success(let phoneMask):
+                  self.phoneMaskModel = phoneMask
+                  DispatchQueue.main.async { [weak self] in
+                      self?.presenter?.presentSomething(response: .pesentPhoneMask(phoneMask))
+                  }
+                  break
+              case .failure(let error):
+                  print("Error load phone mask = \(error)")
               }
-          } catch {
-              print("ERROR!!!", error)
           }
-      }.resume()
   }
+    
+    func formattedNumber(number: SingIn.Something.Request.RequestType) {
+        switch number {
+        case .getFormattedPhoneNumber(let formatNumber):
+            presenter?.presentSomething(response: .formatPhomeMask(phoneMask: phoneMaskModel, number: formatNumber))
+        default:
+            break
+        }
+    }
 }

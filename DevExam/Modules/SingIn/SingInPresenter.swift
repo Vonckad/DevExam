@@ -27,7 +27,42 @@ class SingInPresenter: SingInPresentationLogic
   {
       switch response {
       case .pesentPhoneMask(let phoneMask):
-          viewController?.displaySomething(viewModel: .currentPhoneMask(phoneMask))
+          viewController?.displaySomething(viewModel: .currentPhoneMask(phoneMask.phoneMask))
+      case .formatPhomeMask(phoneMask: let mask, number: let number):
+          formatPhoneNumber(phoneMask: mask, number: number)
       }
   }
+    
+   private func formatPhoneNumber(phoneMask: PhoneMaskModel, number: String) {
+        
+        let cleanPhoneNumber = number.components(separatedBy: CharacterSet.decimalDigits.inverted).joined()
+
+        var mask = "+X (XXX) XXX-XXXX"
+
+        if phoneMask.phoneMask.contains("3") {
+            mask = "+XXX XX-XXX-XXXX"
+        } else if phoneMask.phoneMask.contains("7") {
+            if phoneMask.phoneMask.contains("(") {
+                mask = "+X (XXX) XXX-XX-XX"
+            } else {
+                mask = "+X XXX XXX-XX-XX"
+            }
+        } else if phoneMask.phoneMask.contains("4") {
+            mask = "+XX XXXX-XXXXXX"
+        }
+
+        var result = ""
+        var index = cleanPhoneNumber.startIndex
+        for ch in mask where index < cleanPhoneNumber.endIndex {
+            if ch == "X" {
+                result.append(cleanPhoneNumber[index])
+                index = cleanPhoneNumber.index(after: index)
+            } else {
+                result.append(ch)
+            }
+        }
+        viewController?.displaySomething(viewModel: .formatedPhoneMask(result))
+    }
 }
+
+
