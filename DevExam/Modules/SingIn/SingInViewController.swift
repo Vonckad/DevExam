@@ -124,7 +124,6 @@ class SingInViewController: UIViewController, SingInDisplayLogic
     
   func doSomething()
   {
-//    let request = SingIn.Something.Request()
       interactor?.doSomething(request: .getPhoneMask)
   }
   

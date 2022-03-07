@@ -34,6 +34,9 @@ class SingInInteractor: SingInBusinessLogic, SingInDataStore
   {
     worker = SingInWorker()
     worker?.doSomeWork()
+      
+      // переделать под Alamofire
+      
       let url = URL(string: "http://dev-exam.l-tech.ru/api/v1/phone_masks")
       URLSession.shared.dataTask(with: URLRequest(url: url!)) { data, response, error in
           do {
