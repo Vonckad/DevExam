@@ -16,7 +16,6 @@ import Alamofire
 protocol SingInBusinessLogic
 {
     func doSomething(request: SingIn.Something.Request.RequestType)
-    func formattedNumber(number: SingIn.Something.Request.RequestType)
 }
 
 protocol SingInDataStore
@@ -37,27 +36,27 @@ class SingInInteractor: SingInBusinessLogic, SingInDataStore
     worker = SingInWorker()
     worker?.doSomeWork()
       
-      AF.request("http://dev-exam.l-tech.ru/api/v1/phone_masks").validate()
-          .responseDecodable(of: PhoneMaskModel.self) { response in
-              switch response.result {
-              case .success(let phoneMask):
-                  self.phoneMaskModel = phoneMask
-                  DispatchQueue.main.async { [weak self] in
-                      self?.presenter?.presentSomething(response: .pesentPhoneMask(phoneMask))
-                  }
-                  break
-              case .failure(let error):
-                  print("Error load phone mask = \(error)")
-              }
-          }
+      switch request {
+      case .getPhoneMask:
+          getPhoneMask()
+      case .getFormattedPhoneNumber(let formatNumber):
+          presenter?.presentSomething(response: .formatPhomeMask(phoneMask: phoneMaskModel, number: formatNumber))
+      }
   }
     
-    func formattedNumber(number: SingIn.Something.Request.RequestType) {
-        switch number {
-        case .getFormattedPhoneNumber(let formatNumber):
-            presenter?.presentSomething(response: .formatPhomeMask(phoneMask: phoneMaskModel, number: formatNumber))
-        default:
-            break
-        }
+    private func getPhoneMask() {
+        AF.request("http://dev-exam.l-tech.ru/api/v1/phone_masks").validate()
+            .responseDecodable(of: PhoneMaskModel.self) { response in
+                switch response.result {
+                case .success(let phoneMask):
+                    self.phoneMaskModel = phoneMask
+                    DispatchQueue.main.async { [weak self] in
+                        self?.presenter?.presentSomething(response: .pesentPhoneMask(phoneMask))
+                    }
+                    break
+                case .failure(let error):
+                    print("Error load phone mask = \(error)")
+                }
+            }
     }
 }

@@ -73,6 +73,12 @@ class SingInViewController: UIViewController, SingInDisplayLogic
     setupUI()
     view.backgroundColor = UIColor(red: 238/255, green: 235/255, blue: 248/255, alpha: 1)
   }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        loginTextField.layer.cornerRadius = 8
+        passwordTextField.layer.cornerRadius = 8
+    }
   
   // MARK: Do something
   
@@ -112,16 +118,29 @@ class SingInViewController: UIViewController, SingInDisplayLogic
         
         loginTextField.keyboardType = .numberPad
         loginTextField.delegate = self
-        passwordTextField.placeholder = "password"
+        loginTextField.backgroundColor = .white
+        loginTextField.textColor = .black
+        loginTextField.attributedPlaceholder = .init(string: " ", attributes: [.foregroundColor : UIColor.systemGray, .font : UIFont.systemFont(ofSize: 24)])
+
+        passwordTextField.backgroundColor = .white
+        passwordTextField.attributedPlaceholder = .init(string: "Password", attributes: [.foregroundColor : UIColor.systemGray, .font : UIFont.systemFont(ofSize: 24)])
+        passwordTextField.textColor = .black
+        passwordTextField.isSecureTextEntry = true
+        
         singInButton.backgroundColor = .brown
+        singInButton.setTitle("Sign In", for: .normal)
+        singInButton.titleLabel?.attributedText = .init(string: "Sign In", attributes: [
+            .foregroundColor : UIColor(red: 238/255, green: 235/255, blue: 248/255, alpha: 1),
+            .font : UIFont.systemFont(ofSize: 24)])
+        singInButton.layer.cornerRadius = 8
         singInButton.addTarget(self, action: #selector(singIn), for: .touchUpInside)
+        view.addGestureRecognizer(UITapGestureRecognizer(target: view, action: #selector(UIView.endEditing)))
     }
   @objc
     func singIn() {
         loginTextField.resignFirstResponder()
         passwordTextField.resignFirstResponder()
     }
-    
     
   func doSomething()
   {
@@ -144,7 +163,7 @@ extension SingInViewController: UITextFieldDelegate {
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         guard let text = textField.text else { return false }
         let newString = (text as NSString).replacingCharacters(in: range, with: string)
-        interactor?.formattedNumber(number: .getFormattedPhoneNumber(newString))
+        interactor?.doSomething(request: .getFormattedPhoneNumber(newString))
         return false
     }
 }
