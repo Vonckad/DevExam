@@ -30,10 +30,12 @@ class SingInPresenter: SingInPresentationLogic
           viewController?.displaySomething(viewModel: .currentPhoneMask(phoneMask.phoneMask))
       case .formatPhomeMask(phoneMask: let mask, number: let number):
           formatPhoneNumber(phoneMask: mask, number: number)
+      case .presenrtUser(mask: let mask, username: let username, password: let password):
+          viewController?.displaySomething(viewModel: .currentUser(username: formatPhoneNumber(phoneMask: mask, number: username), password: password))
       }
   }
     
-   private func formatPhoneNumber(phoneMask: PhoneMaskModel, number: String) {
+   private func formatPhoneNumber(phoneMask: PhoneMaskModel, number: String) -> String {
         
         let cleanPhoneNumber = number.components(separatedBy: CharacterSet.decimalDigits.inverted).joined()
 
@@ -62,6 +64,7 @@ class SingInPresenter: SingInPresentationLogic
             }
         }
         viewController?.displaySomething(viewModel: .formatedPhoneMask(result))
+       return result
     }
 }
 

@@ -24,13 +24,15 @@ enum SingIn
             case getPhoneMask
             case getFormattedPhoneNumber(String)
             case postSignIn(number: String, password: String)
+            case searchUser(mask: String)
         }
     }
     struct Response
     {
         enum ResponseType {
             case pesentPhoneMask(_ : PhoneMaskModel)
-            case formatPhomeMask(phoneMask: PhoneMaskModel, number : String)
+            case formatPhomeMask(phoneMask: PhoneMaskModel, number: String)
+            case presenrtUser(mask: PhoneMaskModel, username: String, password: String)
         }
     }
     struct ViewModel
@@ -38,6 +40,7 @@ enum SingIn
         enum viewModelData {
             case currentPhoneMask(_ : String)
             case formatedPhoneMask(_ : String)
+            case currentUser(username: String, password: String)
         }
     }
   }

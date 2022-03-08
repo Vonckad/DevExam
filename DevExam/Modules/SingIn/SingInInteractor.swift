@@ -12,6 +12,7 @@
 
 import UIKit
 import Alamofire
+import Security
 
 protocol SingInBusinessLogic
 {
@@ -44,10 +45,14 @@ class SingInInteractor: SingInBusinessLogic, SingInDataStore
       case .postSignIn(number: let number, password: let password):
           print("number = \(removeNumberFormat(number: number)), password = \(password)")
           let param: Parameters = [
-            "phone" : "375663211234",//"\(removeNumberFormat(number: number))",
-            "password" : "devExam18"//"\(password)"
+            "phone" : "\(removeNumberFormat(number: number))",
+            "password" : "\(password)"
           ]
           postSignIn(param: param)
+      case .searchUser(mask: let mask):
+          let phoneMask = PhoneMaskModel(phoneMask: mask)
+          let user: (String, String) = searchUser(mask: phoneMask) //переделать поиск по маске
+          presenter?.presentSomething(response: .presenrtUser(mask: phoneMask, username: user.0, password: user.1))
       }
   }
     
@@ -74,6 +79,7 @@ class SingInInteractor: SingInBusinessLogic, SingInDataStore
                 switch response.result {
                 case .success(let ans):
                     print(ans)
+                    self.saveKeyChain(username: param["phone"] as! String, password: param["password"] as! String)
                 case .failure(let error):
                     print("Number or password incorrect = \(error)")
                 }
@@ -90,4 +96,50 @@ class SingInInteractor: SingInBusinessLogic, SingInDataStore
             }
             return text
         }
+    
+    private func saveKeyChain(username: String, password: String) {
+        let attributes: [String: Any] = [
+            kSecClass as String: kSecClassGenericPassword,
+            kSecAttrAccount as String: username,
+            kSecValueData as String: password.data(using: .utf8)!,
+        ]
+        
+        SecItemAdd(attributes as CFDictionary, nil)
+    }
+    
+    private func searchUser(mask: PhoneMaskModel) ->  (String, String) {
+        var res = ("", "")
+        var username = ""
+        // Set query
+        if mask.phoneMask.contains("3") {
+            username = "375663211234"
+        } else if mask.phoneMask.contains("7") {
+            username = "79005868675"
+        } else if mask.phoneMask.contains("4") {
+            username = "449009223321"
+        } //так себе поиск
+        
+        let query: [String: Any] = [
+            kSecClass as String: kSecClassGenericPassword,
+            kSecAttrAccount as String: username,
+            kSecMatchLimit as String: kSecMatchLimitOne,
+            kSecReturnAttributes as String: true,
+            kSecReturnData as String: true,
+        ]
+        var item: CFTypeRef?
+
+        // Check if user exists in the keychain
+        if SecItemCopyMatching(query as CFDictionary, &item) == noErr {
+            
+            // Extract result
+            if let existingItem = item as? [String: Any],
+               let username = existingItem[kSecAttrAccount as String] as? String,
+               let passwordData = existingItem[kSecValueData as String] as? Data,
+               let password = String(data: passwordData, encoding: .utf8) {
+                print("found = \(username), \(password)")
+                res = (username, password)
+            }
+        }
+        return res
+    }
 }

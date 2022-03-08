@@ -106,8 +106,12 @@ class SingInViewController: UIViewController, SingInDisplayLogic
       switch viewModel {
       case .currentPhoneMask(let phoneMask):
           loginTextField.placeholder = phoneMask
+          interactor?.doSomething(request: .searchUser(mask: phoneMask))
       case .formatedPhoneMask(let number):
           loginTextField.text = number
+      case .currentUser(username: let username, password: let password):
+          loginTextField.text = username
+          passwordTextField.text = password
       }
   }
 }
