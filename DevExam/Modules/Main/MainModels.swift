@@ -28,12 +28,14 @@ enum Main
     {
         enum ResponseType {
             case presentList(_ : [ListModel])
+            case presentAlert(_ : String)
         }
     }
     struct ViewModel
     {
         enum viewModelData {
             case list(_ : [ListModel])
+            case showAlert(_ : String)
         }
     }
   }

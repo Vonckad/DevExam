@@ -34,6 +34,8 @@ class SingInPresenter: SingInPresentationLogic
           viewController?.displaySomething(viewModel: .currentUser(username: formatPhoneNumber(phoneMask: mask, number: username), password: password))
       case .presentMainVC:
           viewController?.displaySomething(viewModel: .pushMainVC)
+      case .presentAlert(let message, maskOrNumber: let flag):
+          viewController?.displaySomething(viewModel: .showAlert(message, maskOrNumber: flag))
       }
   }
     

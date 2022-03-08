@@ -18,6 +18,7 @@
 		E33A25E827D5D9C300F20E34 /* SingInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E33A25E227D5D9C300F20E34 /* SingInViewController.swift */; };
 		E33A25E927D5D9C300F20E34 /* SingInInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E33A25E327D5D9C300F20E34 /* SingInInteractor.swift */; };
 		E33A25EC27D5F74F00F20E34 /* PhoneMaskModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E33A25EB27D5F74F00F20E34 /* PhoneMaskModel.swift */; };
+		E3816FE927D7AFD500970BB3 /* ListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3816FE827D7AFD500970BB3 /* ListTableViewCell.swift */; };
 		E3ACA87327D76287001BCA41 /* PostResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3ACA87227D76287001BCA41 /* PostResponseModel.swift */; };
 		E3ACA87B27D793CD001BCA41 /* MainPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3ACA87527D793CD001BCA41 /* MainPresenter.swift */; };
 		E3ACA87C27D793CD001BCA41 /* MainWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3ACA87627D793CD001BCA41 /* MainWorker.swift */; };
@@ -45,6 +46,7 @@
 		E33A25E227D5D9C300F20E34 /* SingInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingInViewController.swift; sourceTree = "<group>"; };
 		E33A25E327D5D9C300F20E34 /* SingInInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingInInteractor.swift; sourceTree = "<group>"; };
 		E33A25EB27D5F74F00F20E34 /* PhoneMaskModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneMaskModel.swift; sourceTree = "<group>"; };
+		E3816FE827D7AFD500970BB3 /* ListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListTableViewCell.swift; sourceTree = "<group>"; };
 		E3ACA87227D76287001BCA41 /* PostResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostResponseModel.swift; sourceTree = "<group>"; };
 		E3ACA87527D793CD001BCA41 /* MainPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainPresenter.swift; sourceTree = "<group>"; };
 		E3ACA87627D793CD001BCA41 /* MainWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainWorker.swift; sourceTree = "<group>"; };
@@ -166,6 +168,7 @@
 			isa = PBXGroup;
 			children = (
 				E3ACA88127D7A8AB001BCA41 /* ListTableView.swift */,
+				E3816FE827D7AFD500970BB3 /* ListTableViewCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -289,6 +292,7 @@
 				E33A25E727D5D9C300F20E34 /* SingInModels.swift in Sources */,
 				E33A25E527D5D9C300F20E34 /* SingInWorker.swift in Sources */,
 				E3ACA87327D76287001BCA41 /* PostResponseModel.swift in Sources */,
+				E3816FE927D7AFD500970BB3 /* ListTableViewCell.swift in Sources */,
 				E3ACA87D27D793CD001BCA41 /* MainRouter.swift in Sources */,
 				E3ACA87B27D793CD001BCA41 /* MainPresenter.swift in Sources */,
 				E3ACA87F27D793CD001BCA41 /* MainViewController.swift in Sources */,

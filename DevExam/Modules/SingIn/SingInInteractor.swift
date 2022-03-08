@@ -67,6 +67,7 @@ class SingInInteractor: SingInBusinessLogic, SingInDataStore
                     }
                     break
                 case .failure(let error):
+                    self.presenter?.presentSomething(response: .presentAlert("Error load phone mask = \(error)", maskOrNumber: true))
                     print("Error load phone mask = \(error)")
                 }
             }
@@ -82,6 +83,7 @@ class SingInInteractor: SingInBusinessLogic, SingInDataStore
                     self.presenter?.presentSomething(response: .presentMainVC)
                     self.saveKeyChain(username: param["phone"] as! String, password: param["password"] as! String)
                 case .failure(let error):
+                    self.presenter?.presentSomething(response: .presentAlert("Number or password incorrect = \(error)", maskOrNumber: false))
                     print("Number or password incorrect = \(error)")
                 }
             }

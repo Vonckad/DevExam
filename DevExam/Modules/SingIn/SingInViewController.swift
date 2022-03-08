@@ -114,8 +114,18 @@ class SingInViewController: UIViewController, SingInDisplayLogic
           passwordTextField.text = password
       case .pushMainVC:
           router?.routeToSomewhere(segue: nil)
+      case .showAlert(let message, maskOrNumber: let flag):
+          createAlert(message: message, flag: flag) // ну так себе логика
       }
   }
+    
+    private func createAlert(message: String, flag: Bool) {
+        let alert = UIAlertController(title: "Error", message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { _ in
+            if flag { self.interactor?.doSomething(request: .getPhoneMask) }
+        }))
+        present(alert, animated: true)
+    }
 }
 
 extension SingInViewController: UITextFieldDelegate {

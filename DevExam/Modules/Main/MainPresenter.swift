@@ -28,6 +28,8 @@ class MainPresenter: MainPresentationLogic
       switch response {
       case .presentList(let list):
           viewController?.displaySomething(viewModel: .list(list))
+      case .presentAlert(let message):
+          viewController?.displaySomething(viewModel: .showAlert(message))
       }
   }
 }

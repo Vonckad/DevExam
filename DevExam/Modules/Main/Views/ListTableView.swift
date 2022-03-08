@@ -16,7 +16,7 @@ class ListTableView: UITableView {
         delegate = self
         dataSource = self
         allowsSelection = false
-        register(UITableViewCell.self, forCellReuseIdentifier: "cell")
+        register(ListTableViewCell.self, forCellReuseIdentifier: ListTableViewCell.reuseIdentifier)
     }
     
     required init?(coder: NSCoder) {
@@ -30,8 +30,9 @@ extension ListTableView: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-        cell.textLabel?.text = cells[indexPath.row].title
+        let cell = tableView.dequeueReusableCell(withIdentifier: ListTableViewCell.reuseIdentifier, for: indexPath) as! ListTableViewCell
+        let data = cells[indexPath.row]
+        cell.addData(title: data.title, detail: data.text, date: data.date)
         return cell
     }
 }

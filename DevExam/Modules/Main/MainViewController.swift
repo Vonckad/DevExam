@@ -90,7 +90,6 @@ class MainViewController: UIViewController, MainDisplayLogic
   
   func doSomething()
   {
-//    let request = Main.Something.Request()
       interactor?.doSomething(request: .getList)
   }
   
@@ -100,6 +99,16 @@ class MainViewController: UIViewController, MainDisplayLogic
       case .list(let list):
           tableView.cells = list
           tableView.reloadData()
+      case .showAlert(let message):
+          createAlert(message: message)
       }
   }
+    
+    private func createAlert(message: String) {
+        let alert = UIAlertController(title: "Error", message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { _ in
+            self.interactor?.doSomething(request: .getList)
+        }))
+        present(alert, animated: true)
+    }
 }

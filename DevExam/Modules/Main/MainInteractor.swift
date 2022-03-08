@@ -49,6 +49,7 @@ class MainInteractor: MainBusinessLogic, MainDataStore
                 case .success(let list):
                     self.presenter?.presentSomething(response: .presentList(list))
                 case .failure(let error):
+                    self.presenter?.presentSomething(response: .presentAlert("Error load list = \(error)"))
                     print("Error load list = \(error)")
                 }
             }
