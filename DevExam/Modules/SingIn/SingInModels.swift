@@ -23,6 +23,7 @@ enum SingIn
         enum RequestType {
             case getPhoneMask
             case getFormattedPhoneNumber(String)
+            case postSignIn(number: String, password: String)
         }
     }
     struct Response

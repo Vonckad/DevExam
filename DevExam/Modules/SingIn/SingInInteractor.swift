@@ -41,6 +41,13 @@ class SingInInteractor: SingInBusinessLogic, SingInDataStore
           getPhoneMask()
       case .getFormattedPhoneNumber(let formatNumber):
           presenter?.presentSomething(response: .formatPhomeMask(phoneMask: phoneMaskModel, number: formatNumber))
+      case .postSignIn(number: let number, password: let password):
+          print("number = \(removeNumberFormat(number: number)), password = \(password)")
+          let param: Parameters = [
+            "phone" : "375663211234",//"\(removeNumberFormat(number: number))",
+            "password" : "devExam18"//"\(password)"
+          ]
+          postSignIn(param: param)
       }
   }
     
@@ -59,4 +66,28 @@ class SingInInteractor: SingInBusinessLogic, SingInDataStore
                 }
             }
     }
+    
+    private func postSignIn(param: Parameters) {
+        let headers: HTTPHeaders = [.contentType("application/x-www-form-urlencoded")]
+        AF.request("http://dev-exam.l-tech.ru/api/v1/auth", method: .post, parameters: param, headers: headers).validate(statusCode: 200 ..< 300)
+            .responseDecodable(of: PostResponseModel.self) { response in
+                switch response.result {
+                case .success(let ans):
+                    print(ans)
+                case .failure(let error):
+                    print("Number or password incorrect = \(error)")
+                }
+            }
+    }
+    
+    private func removeNumberFormat(number: String) -> String {
+            let digits = CharacterSet.decimalDigits
+            var text = ""
+            for char in number.unicodeScalars {
+                if digits.contains(char) {
+                    text.append(char.description)
+                }
+            }
+            return text
+        }
 }

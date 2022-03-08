@@ -87,6 +87,42 @@ class SingInViewController: UIViewController, SingInDisplayLogic
     private let passwordTextField = UITextField()
     private let singInButton = UIButton()
     
+  @objc
+    func singIn() {
+        guard let number = loginTextField.text, let password = passwordTextField.text else { return }
+        interactor?.doSomething(request: .postSignIn(number: number, password: password))
+        loginTextField.resignFirstResponder()
+        passwordTextField.resignFirstResponder()
+    }
+    
+  func doSomething()
+  {
+      interactor?.doSomething(request: .getPhoneMask)
+  }
+  
+    func displaySomething(viewModel: SingIn.Something.ViewModel.viewModelData)
+  {
+      
+      switch viewModel {
+      case .currentPhoneMask(let phoneMask):
+          loginTextField.placeholder = phoneMask
+      case .formatedPhoneMask(let number):
+          loginTextField.text = number
+      }
+  }
+}
+
+extension SingInViewController: UITextFieldDelegate {
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        guard let text = textField.text else { return false }
+        let newString = (text as NSString).replacingCharacters(in: range, with: string)
+        interactor?.doSomething(request: .getFormattedPhoneNumber(newString))
+        return false
+    }
+}
+
+//MARK: - setupUI
+extension SingInViewController {
     private func setupUI() {
         logoImageView.translatesAutoresizingMaskIntoConstraints = false
         loginTextField.translatesAutoresizingMaskIntoConstraints = false
@@ -135,35 +171,5 @@ class SingInViewController: UIViewController, SingInDisplayLogic
         singInButton.layer.cornerRadius = 8
         singInButton.addTarget(self, action: #selector(singIn), for: .touchUpInside)
         view.addGestureRecognizer(UITapGestureRecognizer(target: view, action: #selector(UIView.endEditing)))
-    }
-  @objc
-    func singIn() {
-        loginTextField.resignFirstResponder()
-        passwordTextField.resignFirstResponder()
-    }
-    
-  func doSomething()
-  {
-      interactor?.doSomething(request: .getPhoneMask)
-  }
-  
-    func displaySomething(viewModel: SingIn.Something.ViewModel.viewModelData)
-  {
-      
-      switch viewModel {
-      case .currentPhoneMask(let phoneMask):
-          loginTextField.placeholder = phoneMask
-      case .formatedPhoneMask(let number):
-          loginTextField.text = number
-      }
-  }
-}
-
-extension SingInViewController: UITextFieldDelegate {
-    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        guard let text = textField.text else { return false }
-        let newString = (text as NSString).replacingCharacters(in: range, with: string)
-        interactor?.doSomething(request: .getFormattedPhoneNumber(newString))
-        return false
     }
 }
