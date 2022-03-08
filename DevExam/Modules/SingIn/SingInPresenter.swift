@@ -29,9 +29,11 @@ class SingInPresenter: SingInPresentationLogic
       case .pesentPhoneMask(let phoneMask):
           viewController?.displaySomething(viewModel: .currentPhoneMask(phoneMask.phoneMask))
       case .formatPhomeMask(phoneMask: let mask, number: let number):
-          formatPhoneNumber(phoneMask: mask, number: number)
+          formatPhoneNumber(phoneMask: mask, number: number) //может вынести это в interactor?
       case .presenrtUser(mask: let mask, username: let username, password: let password):
           viewController?.displaySomething(viewModel: .currentUser(username: formatPhoneNumber(phoneMask: mask, number: username), password: password))
+      case .presentMainVC:
+          viewController?.displaySomething(viewModel: .pushMainVC)
       }
   }
     

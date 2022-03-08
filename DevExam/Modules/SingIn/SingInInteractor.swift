@@ -51,7 +51,7 @@ class SingInInteractor: SingInBusinessLogic, SingInDataStore
           postSignIn(param: param)
       case .searchUser(mask: let mask):
           let phoneMask = PhoneMaskModel(phoneMask: mask)
-          let user: (String, String) = searchUser(mask: phoneMask) //переделать поиск по маске
+          let user: (String, String) = searchUser(mask: phoneMask)
           presenter?.presentSomething(response: .presenrtUser(mask: phoneMask, username: user.0, password: user.1))
       }
   }
@@ -74,11 +74,12 @@ class SingInInteractor: SingInBusinessLogic, SingInDataStore
     
     private func postSignIn(param: Parameters) {
         let headers: HTTPHeaders = [.contentType("application/x-www-form-urlencoded")]
-        AF.request("http://dev-exam.l-tech.ru/api/v1/auth", method: .post, parameters: param, headers: headers).validate(statusCode: 200 ..< 300)
+        AF.request("http://dev-exam.l-tech.ru/api/v1/auth", method: .post, parameters: param, headers: headers).validate()
             .responseDecodable(of: PostResponseModel.self) { response in
                 switch response.result {
                 case .success(let ans):
                     print(ans)
+                    self.presenter?.presentSomething(response: .presentMainVC)
                     self.saveKeyChain(username: param["phone"] as! String, password: param["password"] as! String)
                 case .failure(let error):
                     print("Number or password incorrect = \(error)")

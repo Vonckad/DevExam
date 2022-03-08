@@ -19,6 +19,12 @@
 		E33A25E927D5D9C300F20E34 /* SingInInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E33A25E327D5D9C300F20E34 /* SingInInteractor.swift */; };
 		E33A25EC27D5F74F00F20E34 /* PhoneMaskModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E33A25EB27D5F74F00F20E34 /* PhoneMaskModel.swift */; };
 		E3ACA87327D76287001BCA41 /* PostResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3ACA87227D76287001BCA41 /* PostResponseModel.swift */; };
+		E3ACA87B27D793CD001BCA41 /* MainPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3ACA87527D793CD001BCA41 /* MainPresenter.swift */; };
+		E3ACA87C27D793CD001BCA41 /* MainWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3ACA87627D793CD001BCA41 /* MainWorker.swift */; };
+		E3ACA87D27D793CD001BCA41 /* MainRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3ACA87727D793CD001BCA41 /* MainRouter.swift */; };
+		E3ACA87E27D793CD001BCA41 /* MainModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3ACA87827D793CD001BCA41 /* MainModels.swift */; };
+		E3ACA87F27D793CD001BCA41 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3ACA87927D793CD001BCA41 /* MainViewController.swift */; };
+		E3ACA88027D793CD001BCA41 /* MainInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3ACA87A27D793CD001BCA41 /* MainInteractor.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,6 +44,12 @@
 		E33A25E327D5D9C300F20E34 /* SingInInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingInInteractor.swift; sourceTree = "<group>"; };
 		E33A25EB27D5F74F00F20E34 /* PhoneMaskModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneMaskModel.swift; sourceTree = "<group>"; };
 		E3ACA87227D76287001BCA41 /* PostResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostResponseModel.swift; sourceTree = "<group>"; };
+		E3ACA87527D793CD001BCA41 /* MainPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainPresenter.swift; sourceTree = "<group>"; };
+		E3ACA87627D793CD001BCA41 /* MainWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainWorker.swift; sourceTree = "<group>"; };
+		E3ACA87727D793CD001BCA41 /* MainRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainRouter.swift; sourceTree = "<group>"; };
+		E3ACA87827D793CD001BCA41 /* MainModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainModels.swift; sourceTree = "<group>"; };
+		E3ACA87927D793CD001BCA41 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
+		E3ACA87A27D793CD001BCA41 /* MainInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainInteractor.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,6 +115,7 @@
 		E33A25DC27D5D96300F20E34 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				E3ACA87427D79386001BCA41 /* Main */,
 				E33A25DD27D5D99500F20E34 /* SingIn */,
 			);
 			path = Modules;
@@ -128,6 +141,19 @@
 				E3ACA87227D76287001BCA41 /* PostResponseModel.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		E3ACA87427D79386001BCA41 /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				E3ACA87527D793CD001BCA41 /* MainPresenter.swift */,
+				E3ACA87627D793CD001BCA41 /* MainWorker.swift */,
+				E3ACA87727D793CD001BCA41 /* MainRouter.swift */,
+				E3ACA87827D793CD001BCA41 /* MainModels.swift */,
+				E3ACA87927D793CD001BCA41 /* MainViewController.swift */,
+				E3ACA87A27D793CD001BCA41 /* MainInteractor.swift */,
+			);
+			path = Main;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -249,9 +275,15 @@
 				E33A25E727D5D9C300F20E34 /* SingInModels.swift in Sources */,
 				E33A25E527D5D9C300F20E34 /* SingInWorker.swift in Sources */,
 				E3ACA87327D76287001BCA41 /* PostResponseModel.swift in Sources */,
+				E3ACA87D27D793CD001BCA41 /* MainRouter.swift in Sources */,
+				E3ACA87B27D793CD001BCA41 /* MainPresenter.swift in Sources */,
+				E3ACA87F27D793CD001BCA41 /* MainViewController.swift in Sources */,
+				E3ACA88027D793CD001BCA41 /* MainInteractor.swift in Sources */,
 				E33A25E827D5D9C300F20E34 /* SingInViewController.swift in Sources */,
 				E33A25C927D5D8E700F20E34 /* AppDelegate.swift in Sources */,
 				E33A25EC27D5F74F00F20E34 /* PhoneMaskModel.swift in Sources */,
+				E3ACA87C27D793CD001BCA41 /* MainWorker.swift in Sources */,
+				E3ACA87E27D793CD001BCA41 /* MainModels.swift in Sources */,
 				E33A25E627D5D9C300F20E34 /* SingInRouter.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

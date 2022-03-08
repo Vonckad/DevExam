@@ -112,6 +112,8 @@ class SingInViewController: UIViewController, SingInDisplayLogic
       case .currentUser(username: let username, password: let password):
           loginTextField.text = username
           passwordTextField.text = password
+      case .pushMainVC:
+          router?.routeToSomewhere(segue: nil)
       }
   }
 }

@@ -33,6 +33,7 @@ enum SingIn
             case pesentPhoneMask(_ : PhoneMaskModel)
             case formatPhomeMask(phoneMask: PhoneMaskModel, number: String)
             case presenrtUser(mask: PhoneMaskModel, username: String, password: String)
+            case presentMainVC
         }
     }
     struct ViewModel
@@ -41,6 +42,7 @@ enum SingIn
             case currentPhoneMask(_ : String)
             case formatedPhoneMask(_ : String)
             case currentUser(username: String, password: String)
+            case pushMainVC
         }
     }
   }
