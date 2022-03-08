@@ -14,14 +14,15 @@ import UIKit
 
 protocol MainDisplayLogic: AnyObject
 {
-  func displaySomething(viewModel: Main.Something.ViewModel)
+    func displaySomething(viewModel: Main.Something.ViewModel.viewModelData)
 }
 
-class MainViewController: UINavigationController, MainDisplayLogic
+class MainViewController: UIViewController, MainDisplayLogic
 {
   var interactor: MainBusinessLogic?
   var router: (NSObjectProtocol & MainRoutingLogic & MainDataPassing)?
-
+  var tableView: ListTableView!
+    
   // MARK: Object lifecycle
   
   override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?)
@@ -69,12 +70,19 @@ class MainViewController: UINavigationController, MainDisplayLogic
   override func viewDidLoad()
   {
     super.viewDidLoad()
-      title = "aerdg"
-      self.navigationItem.title = "DevExam"
-      print("dsfz", navigationItem.title)
-      view.backgroundColor = .blue
+      view.backgroundColor = .white
+      self.title = "DevExam"
+      tableView = ListTableView()
+      tableView.frame = self.view.frame
+      tableView.separatorStyle = .none
+      view.addSubview(tableView)
     doSomething()
   }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+    }
   
   // MARK: Do something
   
@@ -82,12 +90,16 @@ class MainViewController: UINavigationController, MainDisplayLogic
   
   func doSomething()
   {
-    let request = Main.Something.Request()
-    interactor?.doSomething(request: request)
+//    let request = Main.Something.Request()
+      interactor?.doSomething(request: .getList)
   }
   
-  func displaySomething(viewModel: Main.Something.ViewModel)
+    func displaySomething(viewModel: Main.Something.ViewModel.viewModelData)
   {
-    //nameTextField.text = viewModel.name
+      switch viewModel {
+      case .list(let list):
+          tableView.cells = list
+          tableView.reloadData()
+      }
   }
 }

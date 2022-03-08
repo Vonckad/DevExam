@@ -25,6 +25,8 @@
 		E3ACA87E27D793CD001BCA41 /* MainModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3ACA87827D793CD001BCA41 /* MainModels.swift */; };
 		E3ACA87F27D793CD001BCA41 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3ACA87927D793CD001BCA41 /* MainViewController.swift */; };
 		E3ACA88027D793CD001BCA41 /* MainInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3ACA87A27D793CD001BCA41 /* MainInteractor.swift */; };
+		E3ACA88227D7A8AB001BCA41 /* ListTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3ACA88127D7A8AB001BCA41 /* ListTableView.swift */; };
+		E3ACA88527D7A9E0001BCA41 /* ListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3ACA88427D7A9E0001BCA41 /* ListModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -50,6 +52,8 @@
 		E3ACA87827D793CD001BCA41 /* MainModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainModels.swift; sourceTree = "<group>"; };
 		E3ACA87927D793CD001BCA41 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		E3ACA87A27D793CD001BCA41 /* MainInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainInteractor.swift; sourceTree = "<group>"; };
+		E3ACA88127D7A8AB001BCA41 /* ListTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListTableView.swift; sourceTree = "<group>"; };
+		E3ACA88427D7A9E0001BCA41 /* ListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -139,6 +143,7 @@
 			children = (
 				E33A25EB27D5F74F00F20E34 /* PhoneMaskModel.swift */,
 				E3ACA87227D76287001BCA41 /* PostResponseModel.swift */,
+				E3ACA88427D7A9E0001BCA41 /* ListModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -152,8 +157,17 @@
 				E3ACA87827D793CD001BCA41 /* MainModels.swift */,
 				E3ACA87927D793CD001BCA41 /* MainViewController.swift */,
 				E3ACA87A27D793CD001BCA41 /* MainInteractor.swift */,
+				E3ACA88327D7A8B0001BCA41 /* Views */,
 			);
 			path = Main;
+			sourceTree = "<group>";
+		};
+		E3ACA88327D7A8B0001BCA41 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				E3ACA88127D7A8AB001BCA41 /* ListTableView.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -280,9 +294,11 @@
 				E3ACA87F27D793CD001BCA41 /* MainViewController.swift in Sources */,
 				E3ACA88027D793CD001BCA41 /* MainInteractor.swift in Sources */,
 				E33A25E827D5D9C300F20E34 /* SingInViewController.swift in Sources */,
+				E3ACA88527D7A9E0001BCA41 /* ListModel.swift in Sources */,
 				E33A25C927D5D8E700F20E34 /* AppDelegate.swift in Sources */,
 				E33A25EC27D5F74F00F20E34 /* PhoneMaskModel.swift in Sources */,
 				E3ACA87C27D793CD001BCA41 /* MainWorker.swift in Sources */,
+				E3ACA88227D7A8AB001BCA41 /* ListTableView.swift in Sources */,
 				E3ACA87E27D793CD001BCA41 /* MainModels.swift in Sources */,
 				E33A25E627D5D9C300F20E34 /* SingInRouter.swift in Sources */,
 			);

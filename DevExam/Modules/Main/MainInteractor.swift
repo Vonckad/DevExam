@@ -11,10 +11,11 @@
 //
 
 import UIKit
+import Alamofire
 
 protocol MainBusinessLogic
 {
-  func doSomething(request: Main.Something.Request)
+    func doSomething(request: Main.Something.Request.RequestType)
 }
 
 protocol MainDataStore
@@ -30,12 +31,26 @@ class MainInteractor: MainBusinessLogic, MainDataStore
   
   // MARK: Do something
   
-  func doSomething(request: Main.Something.Request)
+    func doSomething(request: Main.Something.Request.RequestType)
   {
     worker = MainWorker()
     worker?.doSomeWork()
     
-    let response = Main.Something.Response()
-    presenter?.presentSomething(response: response)
+      switch request {
+      case .getList:
+          loadList()
+      }
   }
+    
+    private func loadList() {
+        AF.request("http://dev-exam.l-tech.ru/api/v1/posts").validate()
+            .responseDecodable(of: [ListModel].self) { response in
+                switch response.result {
+                case .success(let list):
+                    self.presenter?.presentSomething(response: .presentList(list))
+                case .failure(let error):
+                    print("Error load list = \(error)")
+                }
+            }
+    }
 }

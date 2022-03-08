@@ -20,12 +20,21 @@ enum Main
   {
     struct Request
     {
+        enum RequestType {
+            case getList
+        }
     }
     struct Response
     {
+        enum ResponseType {
+            case presentList(_ : [ListModel])
+        }
     }
     struct ViewModel
     {
+        enum viewModelData {
+            case list(_ : [ListModel])
+        }
     }
   }
 }

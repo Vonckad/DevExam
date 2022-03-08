@@ -32,7 +32,8 @@ class SingInRouter: NSObject, SingInRoutingLogic, SingInDataPassing
   func routeToSomewhere(segue: UIStoryboardSegue?)
   {
     
-      let destinationVC = MainViewController(nibName: nil, bundle: nil)
+      let mainVC = MainViewController()
+      let destinationVC = UINavigationController(rootViewController: mainVC)
       destinationVC.modalPresentationStyle = .fullScreen
 //      var destinationDS = destinationVC.router!.dataStore!
 //      passDataToSomewhere(source: dataStore!, destination: &destinationDS)
