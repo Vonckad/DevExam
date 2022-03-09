@@ -27,7 +27,7 @@ class MainInteractor: MainBusinessLogic, MainDataStore
 {
   var presenter: MainPresentationLogic?
   var worker: MainWorker?
-  //var name: String = ""
+  var list: [ListModel] = []
   
   // MARK: Do something
   
@@ -35,10 +35,12 @@ class MainInteractor: MainBusinessLogic, MainDataStore
   {
     worker = MainWorker()
     worker?.doSomeWork()
-    
+      
       switch request {
       case .getList:
           loadList()
+      case .presentDetailVC(indexPath: let indexPath):
+          presenter?.presentSomething(response: .presentDetailVC(getDataDetailVC(indexPath: indexPath)))
       }
   }
     
@@ -47,11 +49,16 @@ class MainInteractor: MainBusinessLogic, MainDataStore
             .responseDecodable(of: [ListModel].self) { response in
                 switch response.result {
                 case .success(let list):
+                    self.list = list
                     self.presenter?.presentSomething(response: .presentList(list))
                 case .failure(let error):
                     self.presenter?.presentSomething(response: .presentAlert("Error load list = \(error)"))
                     print("Error load list = \(error)")
                 }
             }
+    }
+    
+    private func getDataDetailVC(indexPath: IndexPath) -> ListModel{
+        return list[indexPath.row]
     }
 }

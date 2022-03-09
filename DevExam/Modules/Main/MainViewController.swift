@@ -84,6 +84,7 @@ class MainViewController: UIViewController, MainDisplayLogic
       tableView.separatorStyle = .none
       tableView.rowHeight = UITableView.automaticDimension
       tableView.estimatedRowHeight = 600
+      tableView.listDelegate = self
       
       configureActivityView()
       doSomething()
@@ -91,7 +92,6 @@ class MainViewController: UIViewController, MainDisplayLogic
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
     }
   
   // MARK: Do something
@@ -114,6 +114,8 @@ class MainViewController: UIViewController, MainDisplayLogic
           self.stopActivity(true)
       case .showAlert(let message):
           createAlert(message: message)
+      case .showDetailVC(let data):
+          router?.routeToDetailVC(data: data)
       }
   }
     
@@ -136,5 +138,11 @@ class MainViewController: UIViewController, MainDisplayLogic
     private func stopActivity(_ bool: Bool) {
         bool ? activityView.stopAnimating() : activityView.startAnimating()
         activityView.isHidden = bool
+    }
+}
+
+extension MainViewController: ListTableViewDelegate {
+    func selectCell(indexPath: IndexPath) {
+        interactor?.doSomething(request: .presentDetailVC(indexPath: indexPath))
     }
 }

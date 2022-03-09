@@ -22,6 +22,7 @@ enum Main
     {
         enum RequestType {
             case getList
+            case presentDetailVC(indexPath: IndexPath)
         }
     }
     struct Response
@@ -29,6 +30,7 @@ enum Main
         enum ResponseType {
             case presentList(_ : [ListModel])
             case presentAlert(_ : String)
+            case presentDetailVC(_ : ListModel)
         }
     }
     struct ViewModel
@@ -36,6 +38,7 @@ enum Main
         enum viewModelData {
             case list(_ : [ListModel])
             case showAlert(_ : String)
+            case showDetailVC(_ : ListModel)
         }
     }
   }

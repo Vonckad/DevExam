@@ -18,6 +18,7 @@
 		E33A25E827D5D9C300F20E34 /* SingInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E33A25E227D5D9C300F20E34 /* SingInViewController.swift */; };
 		E33A25E927D5D9C300F20E34 /* SingInInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E33A25E327D5D9C300F20E34 /* SingInInteractor.swift */; };
 		E33A25EC27D5F74F00F20E34 /* PhoneMaskModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E33A25EB27D5F74F00F20E34 /* PhoneMaskModel.swift */; };
+		E3789D9427D8C3BD007AB0E8 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3789D9327D8C3BD007AB0E8 /* DetailViewController.swift */; };
 		E3816FE927D7AFD500970BB3 /* ListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3816FE827D7AFD500970BB3 /* ListTableViewCell.swift */; };
 		E3ACA87327D76287001BCA41 /* PostResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3ACA87227D76287001BCA41 /* PostResponseModel.swift */; };
 		E3ACA87B27D793CD001BCA41 /* MainPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3ACA87527D793CD001BCA41 /* MainPresenter.swift */; };
@@ -46,6 +47,7 @@
 		E33A25E227D5D9C300F20E34 /* SingInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingInViewController.swift; sourceTree = "<group>"; };
 		E33A25E327D5D9C300F20E34 /* SingInInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingInInteractor.swift; sourceTree = "<group>"; };
 		E33A25EB27D5F74F00F20E34 /* PhoneMaskModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneMaskModel.swift; sourceTree = "<group>"; };
+		E3789D9327D8C3BD007AB0E8 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		E3816FE827D7AFD500970BB3 /* ListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListTableViewCell.swift; sourceTree = "<group>"; };
 		E3ACA87227D76287001BCA41 /* PostResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostResponseModel.swift; sourceTree = "<group>"; };
 		E3ACA87527D793CD001BCA41 /* MainPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainPresenter.swift; sourceTree = "<group>"; };
@@ -121,8 +123,9 @@
 		E33A25DC27D5D96300F20E34 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
-				E3ACA87427D79386001BCA41 /* Main */,
 				E33A25DD27D5D99500F20E34 /* SingIn */,
+				E3ACA87427D79386001BCA41 /* Main */,
+				E3789D9227D8C382007AB0E8 /* Detail */,
 			);
 			path = Modules;
 			sourceTree = "<group>";
@@ -148,6 +151,14 @@
 				E3ACA88427D7A9E0001BCA41 /* ListModel.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		E3789D9227D8C382007AB0E8 /* Detail */ = {
+			isa = PBXGroup;
+			children = (
+				E3789D9327D8C3BD007AB0E8 /* DetailViewController.swift */,
+			);
+			path = Detail;
 			sourceTree = "<group>";
 		};
 		E3ACA87427D79386001BCA41 /* Main */ = {
@@ -297,6 +308,7 @@
 				E3ACA87B27D793CD001BCA41 /* MainPresenter.swift in Sources */,
 				E3ACA87F27D793CD001BCA41 /* MainViewController.swift in Sources */,
 				E3ACA88027D793CD001BCA41 /* MainInteractor.swift in Sources */,
+				E3789D9427D8C3BD007AB0E8 /* DetailViewController.swift in Sources */,
 				E33A25E827D5D9C300F20E34 /* SingInViewController.swift in Sources */,
 				E3ACA88527D7A9E0001BCA41 /* ListModel.swift in Sources */,
 				E33A25C927D5D8E700F20E34 /* AppDelegate.swift in Sources */,

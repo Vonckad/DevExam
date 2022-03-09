@@ -7,9 +7,14 @@
 
 import UIKit
 
+protocol ListTableViewDelegate {
+    func selectCell(indexPath: IndexPath)
+}
+
 class ListTableView: UITableView {
     
     var cells: [ListModel] = []
+    var listDelegate: ListTableViewDelegate?
     
     init() {
         super.init(frame: .zero, style: .plain)
@@ -39,8 +44,9 @@ extension ListTableView: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let data = cells[indexPath.row]
+//        let data = cells[indexPath.row]
         tableView.deselectRow(at: indexPath, animated: true)
-        print("http://dev-exam.l-tech.ru\(data.image)")
+        listDelegate?.selectCell(indexPath: indexPath)
+//        print("http://dev-exam.l-tech.ru\(data.image)")
     }
 }

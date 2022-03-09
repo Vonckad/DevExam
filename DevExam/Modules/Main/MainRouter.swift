@@ -12,9 +12,9 @@
 
 import UIKit
 
-@objc protocol MainRoutingLogic
+ protocol MainRoutingLogic
 {
-  //func routeToSomewhere(segue: UIStoryboardSegue?)
+    func routeToDetailVC(data: ListModel)
 }
 
 protocol MainDataPassing
@@ -29,32 +29,16 @@ class MainRouter: NSObject, MainRoutingLogic, MainDataPassing
   
   // MARK: Routing
   
-  //func routeToSomewhere(segue: UIStoryboardSegue?)
-  //{
-  //  if let segue = segue {
-  //    let destinationVC = segue.destination as! SomewhereViewController
-  //    var destinationDS = destinationVC.router!.dataStore!
-  //    passDataToSomewhere(source: dataStore!, destination: &destinationDS)
-  //  } else {
-  //    let storyboard = UIStoryboard(name: "Main", bundle: nil)
-  //    let destinationVC = storyboard.instantiateViewController(withIdentifier: "SomewhereViewController") as! SomewhereViewController
-  //    var destinationDS = destinationVC.router!.dataStore!
-  //    passDataToSomewhere(source: dataStore!, destination: &destinationDS)
-  //    navigateToSomewhere(source: viewController!, destination: destinationVC)
-  //  }
-  //}
+  func routeToDetailVC(data: ListModel)
+  {
+      let destinationVC = DetailViewController(data: data)
+      navigateToSomewhere(source: viewController!, destination: destinationVC)
+  }
 
   // MARK: Navigation
   
-  //func navigateToSomewhere(source: MainViewController, destination: SomewhereViewController)
-  //{
-  //  source.show(destination, sender: nil)
-  //}
-  
-  // MARK: Passing data
-  
-  //func passDataToSomewhere(source: MainDataStore, destination: inout SomewhereDataStore)
-  //{
-  //  destination.name = source.name
-  //}
+  func navigateToSomewhere(source: MainViewController, destination: DetailViewController)
+  {
+      source.navigationController?.pushViewController(destination, animated: true)
+  }
 }
