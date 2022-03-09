@@ -30,8 +30,8 @@ class MainPresenter: MainPresentationLogic
           viewController?.displaySomething(viewModel: .list(list))
       case .presentAlert(let message):
           viewController?.displaySomething(viewModel: .showAlert(message))
-      case .presentDetailVC(let data):
-          viewController?.displaySomething(viewModel: .showDetailVC(data))
+//      case .presentDetailVC(let data):
+//          viewController?.displaySomething(viewModel: .showDetailVC(data))
       }
   }
 }

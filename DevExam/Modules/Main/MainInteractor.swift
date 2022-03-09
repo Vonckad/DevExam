@@ -20,7 +20,7 @@ protocol MainBusinessLogic
 
 protocol MainDataStore
 {
-  //var name: String { get set }
+    var list: [ListModel] { get set }
 }
 
 class MainInteractor: MainBusinessLogic, MainDataStore
@@ -38,27 +38,41 @@ class MainInteractor: MainBusinessLogic, MainDataStore
       
       switch request {
       case .getList:
-          loadList()
-      case .presentDetailVC(indexPath: let indexPath):
-          presenter?.presentSomething(response: .presentDetailVC(getDataDetailVC(indexPath: indexPath)))
+//          loadList()
+          timerRequest()
+//      case .presentDetailVC(indexPath: let indexPath):
+//          presenter?.presentSomething(response: .presentDetailVC(getDataDetailVC(indexPath: indexPath)))
       }
   }
     
-    private func loadList() {
+    private func loadList(isLoad: @escaping (Bool)->()) {
         AF.request("http://dev-exam.l-tech.ru/api/v1/posts").validate()
             .responseDecodable(of: [ListModel].self) { response in
                 switch response.result {
                 case .success(let list):
                     self.list = list
                     self.presenter?.presentSomething(response: .presentList(list))
+                    isLoad(true)
                 case .failure(let error):
                     self.presenter?.presentSomething(response: .presentAlert("Error load list = \(error)"))
                     print("Error load list = \(error)")
+                    isLoad(false)
                 }
             }
     }
     
-    private func getDataDetailVC(indexPath: IndexPath) -> ListModel{
-        return list[indexPath.row]
+//    private func getDataDetailVC(indexPath: IndexPath) -> ListModel{
+//        return list[indexPath.row]
+//    }
+    
+    private func timerRequest() { //так себе решение //надо подумать
+        loadList { isLoad in
+            if isLoad {
+                Timer.scheduledTimer(withTimeInterval: 20.0, repeats: false) { timer in
+                    print("timer fired!")
+                    self.timerRequest()
+                }
+            }
+        }
     }
 }

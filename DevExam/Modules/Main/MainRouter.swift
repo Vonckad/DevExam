@@ -14,7 +14,7 @@ import UIKit
 
  protocol MainRoutingLogic
 {
-    func routeToDetailVC(data: ListModel)
+    func routeToDetailVC(indexPath: IndexPath)
 }
 
 protocol MainDataPassing
@@ -29,9 +29,9 @@ class MainRouter: NSObject, MainRoutingLogic, MainDataPassing
   
   // MARK: Routing
   
-  func routeToDetailVC(data: ListModel)
+  func routeToDetailVC(indexPath: IndexPath)
   {
-      let destinationVC = DetailViewController(data: data)
+      let destinationVC = DetailViewController(data: dataStore!.list[indexPath.row])
       navigateToSomewhere(source: viewController!, destination: destinationVC)
   }
 

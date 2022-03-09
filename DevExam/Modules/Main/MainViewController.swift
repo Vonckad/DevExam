@@ -123,8 +123,8 @@ class MainViewController: UIViewController, MainDisplayLogic
           self.stopActivity(true)
       case .showAlert(let message):
           createAlert(message: message)
-      case .showDetailVC(let data):
-          router?.routeToDetailVC(data: data)
+//      case .showDetailVC(let data):
+//          router?.routeToDetailVC(indexPath: data)
       }
   }
     
@@ -168,6 +168,7 @@ class MainViewController: UIViewController, MainDisplayLogic
 
 extension MainViewController: ListTableViewDelegate {
     func selectCell(indexPath: IndexPath) {
-        interactor?.doSomething(request: .presentDetailVC(indexPath: indexPath))
+//        interactor?.doSomething(request: .presentDetailVC(indexPath: indexPath))
+        router?.routeToDetailVC(indexPath: indexPath)
     }
 }
