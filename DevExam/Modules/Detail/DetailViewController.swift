@@ -8,7 +8,6 @@
 
 import UIKit
 import Kingfisher
-import CoreData
 
 class DetailViewController: UIViewController {
 
@@ -28,7 +27,6 @@ class DetailViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-//        print("detail data = \(data)")
         view.backgroundColor = UIColor(red: 238/255, green: 235/255, blue: 248/255, alpha: 1)
         setupUI()
         addData()
@@ -55,7 +53,9 @@ extension DetailViewController {
         
         imageView.translatesAutoresizingMaskIntoConstraints = false
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
+        titleLabel.textColor = .black
         descriptionLabel.translatesAutoresizingMaskIntoConstraints = false
+        descriptionLabel.textColor = .black
         
         imageView.contentMode = .scaleAspectFit
         descriptionLabel.numberOfLines = 0

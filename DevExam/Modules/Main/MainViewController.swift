@@ -22,7 +22,9 @@ class MainViewController: UIViewController, MainDisplayLogic
   var interactor: MainBusinessLogic?
   var router: (NSObjectProtocol & MainRoutingLogic & MainDataPassing)?
   var tableView: ListTableView!
-  var activityView: UIActivityIndicatorView!
+//  var activityView: UIActivityIndicatorView!
+  var button: UIButton!
+  var item: UIBarButtonItem!
     
   // MARK: Object lifecycle
   
@@ -74,19 +76,33 @@ class MainViewController: UIViewController, MainDisplayLogic
       
       view.backgroundColor = .white
       self.title = "DevExam"
+      navigationItem.backButtonTitle = ""
+      view.backgroundColor = UIColor(red: 238/255, green: 235/255, blue: 248/255, alpha: 1)
       
-      activityView = UIActivityIndicatorView()
+      button = UIButton()
+      button.setImage(UIImage(named: "refresh"), for: .normal)
+      button.imageView?.contentMode = .scaleAspectFit
+      button.addTarget(self, action: #selector(refreshData), for: .touchUpInside)
+      item = UIBarButtonItem(customView: button)
+      
+      navigationController?.navigationBar.titleTextAttributes = [.foregroundColor:UIColor.black, .font: UIFont.systemFont(ofSize: 24)]
+      navigationController?.navigationBar.isOpaque = true
+      navigationController?.navigationBar.tintColor = .gray
+      self.navigationItem.rightBarButtonItem = item
+      
+//      activityView = UIActivityIndicatorView()
       tableView = ListTableView()
       view.addSubview(tableView)
-      view.addSubview(activityView)
+//      view.addSubview(activityView)
       
       tableView.frame = self.view.frame
       tableView.separatorStyle = .none
       tableView.rowHeight = UITableView.automaticDimension
       tableView.estimatedRowHeight = 600
       tableView.listDelegate = self
-      
-      configureActivityView()
+      tableView.backgroundColor = UIColor(red: 238/255, green: 235/255, blue: 248/255, alpha: 1)
+
+//      configureActivityView()
       doSomething()
   }
     
@@ -96,13 +112,15 @@ class MainViewController: UIViewController, MainDisplayLogic
   
   // MARK: Do something
   
-  //@IBOutlet weak var nameTextField: UITextField!
+  @objc
+    func refreshData() {
+        doSomething()
+    }
   
   func doSomething()
   {
       interactor?.doSomething(request: .getList)
       stopActivity(false)
-      
   }
   
     func displaySomething(viewModel: Main.Something.ViewModel.viewModelData)
@@ -129,15 +147,38 @@ class MainViewController: UIViewController, MainDisplayLogic
         present(alert, animated: true)
     }
     
-    private func configureActivityView() {
-        activityView.translatesAutoresizingMaskIntoConstraints = false
-        activityView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        activityView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
-    }
+//    private func configureActivityView() {
+//        activityView.translatesAutoresizingMaskIntoConstraints = false
+//        activityView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+//        activityView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+//    }
     
     private func stopActivity(_ bool: Bool) {
-        bool ? activityView.stopAnimating() : activityView.startAnimating()
-        activityView.isHidden = bool
+//        bool ? activityView.stopAnimating() : activityView.startAnimating()
+        tableView.alpha = bool ? 1.0 : 0.5
+        tableView.allowsSelection = bool
+//        activityView.isHidden = bool
+        item.isEnabled = bool
+        animateBarButton(bool)
+    }
+    
+    private func animateBarButton(_ bool: Bool) {
+        
+        let refresh = self.navigationItem.rightBarButtonItem
+        let layer = refresh?.customView?.layer
+        let rotate = CABasicAnimation(keyPath: "transform.rotation.z")
+           
+        rotate.timingFunction = .init(name: .linear)
+        rotate.fromValue = 0.0
+        rotate.toValue = CGFloat(.pi * -2.0)
+        rotate.duration = 1
+        rotate.repeatCount = .greatestFiniteMagnitude
+        
+        if bool {
+            layer?.removeAnimation(forKey: "transform.rotation.z")
+        } else {
+            layer?.add(rotate, forKey: "transform.rotation.z")
+        }
     }
 }
 

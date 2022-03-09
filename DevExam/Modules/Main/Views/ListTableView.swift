@@ -45,7 +45,7 @@ extension ListTableView: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 //        let data = cells[indexPath.row]
-        tableView.deselectRow(at: indexPath, animated: true)
+//        tableView.deselectRow(at: indexPath, animated: false)
         listDelegate?.selectCell(indexPath: indexPath)
 //        print("http://dev-exam.l-tech.ru\(data.image)")
     }
