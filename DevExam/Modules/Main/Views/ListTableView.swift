@@ -21,6 +21,10 @@ class ListTableView: UITableView {
         delegate = self
         dataSource = self
         register(ListTableViewCell.self, forCellReuseIdentifier: ListTableViewCell.reuseIdentifier)
+        separatorStyle = .none
+        rowHeight = UITableView.automaticDimension
+        estimatedRowHeight = 600
+        backgroundColor = UIColor(red: 238/255, green: 235/255, blue: 248/255, alpha: 1)
     }
     
     required init?(coder: NSCoder) {
@@ -44,9 +48,6 @@ extension ListTableView: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        let data = cells[indexPath.row]
-//        tableView.deselectRow(at: indexPath, animated: false)
         listDelegate?.selectCell(indexPath: indexPath)
-//        print("http://dev-exam.l-tech.ru\(data.image)")
     }
 }

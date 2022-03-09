@@ -36,7 +36,7 @@ class ListTableViewCell: UITableViewCell {
     func addData(title: String, detail: String , date: String, urlImage: String) {
         titleLabel.text = title
         detailLabel.text = detail
-        dateLabel.text = date
+        dateLabel.text = getFormattedDate(date)
         loadImage(urlImage)
     }
     
@@ -46,9 +46,19 @@ class ListTableViewCell: UITableViewCell {
     
     private func loadImage(_ url: String){
         guard let urlImage = URL(string: "http://dev-exam.l-tech.ru\(url)") else { return }
-//        print("http://dev-exam.l-tech.ru\(url)")
         myImageView.kf.indicatorType = .activity
         myImageView.kf.setImage(with: urlImage, options: [.transition(.fade(0.3))])
+    }
+    
+    private func getFormattedDate(_ string: String) -> String{
+        let dateFormatterGet = DateFormatter()
+        dateFormatterGet.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
+
+        let dateFormatterPrint = DateFormatter()
+        dateFormatterPrint.dateFormat = "dd.MM.yyyy, HH:mm"
+
+        let date: Date? = dateFormatterGet.date(from: string)
+        return dateFormatterPrint.string(from: date!);
     }
 
 }

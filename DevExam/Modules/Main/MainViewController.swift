@@ -22,7 +22,6 @@ class MainViewController: UIViewController, MainDisplayLogic
   var interactor: MainBusinessLogic?
   var router: (NSObjectProtocol & MainRoutingLogic & MainDataPassing)?
   var tableView: ListTableView!
-//  var activityView: UIActivityIndicatorView!
   var button: UIButton!
   var item: UIBarButtonItem!
     
@@ -90,19 +89,11 @@ class MainViewController: UIViewController, MainDisplayLogic
       navigationController?.navigationBar.tintColor = .gray
       self.navigationItem.rightBarButtonItem = item
       
-//      activityView = UIActivityIndicatorView()
       tableView = ListTableView()
       view.addSubview(tableView)
-//      view.addSubview(activityView)
-      
       tableView.frame = self.view.frame
-      tableView.separatorStyle = .none
-      tableView.rowHeight = UITableView.automaticDimension
-      tableView.estimatedRowHeight = 600
       tableView.listDelegate = self
-      tableView.backgroundColor = UIColor(red: 238/255, green: 235/255, blue: 248/255, alpha: 1)
-
-//      configureActivityView()
+      
       doSomething()
   }
     
@@ -147,17 +138,10 @@ class MainViewController: UIViewController, MainDisplayLogic
         present(alert, animated: true)
     }
     
-//    private func configureActivityView() {
-//        activityView.translatesAutoresizingMaskIntoConstraints = false
-//        activityView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-//        activityView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
-//    }
-    
     private func stopActivity(_ bool: Bool) {
-//        bool ? activityView.stopAnimating() : activityView.startAnimating()
+
         tableView.alpha = bool ? 1.0 : 0.5
         tableView.allowsSelection = bool
-//        activityView.isHidden = bool
         item.isEnabled = bool
         animateBarButton(bool)
     }
