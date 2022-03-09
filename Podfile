@@ -7,5 +7,6 @@ target 'DevExam' do
 
   # Pods for DevExam
 pod 'Alamofire'
+pod 'Kingfisher'
 
 end

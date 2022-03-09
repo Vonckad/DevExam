@@ -15,7 +15,6 @@ class ListTableView: UITableView {
         super.init(frame: .zero, style: .plain)
         delegate = self
         dataSource = self
-        allowsSelection = false
         register(ListTableViewCell.self, forCellReuseIdentifier: ListTableViewCell.reuseIdentifier)
     }
     
@@ -32,7 +31,16 @@ extension ListTableView: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: ListTableViewCell.reuseIdentifier, for: indexPath) as! ListTableViewCell
         let data = cells[indexPath.row]
-        cell.addData(title: data.title, detail: data.text, date: data.date)
+        cell.addData(title: data.title, detail: data.text, date: data.date, urlImage: data.image)
         return cell
+    }
+    func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        if let cell = cell as? ListTableViewCell { cell.cancelDownloadTask() }
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let data = cells[indexPath.row]
+        tableView.deselectRow(at: indexPath, animated: true)
+        print("http://dev-exam.l-tech.ru\(data.image)")
     }
 }

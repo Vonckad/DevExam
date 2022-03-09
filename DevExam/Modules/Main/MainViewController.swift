@@ -77,12 +77,13 @@ class MainViewController: UIViewController, MainDisplayLogic
       
       activityView = UIActivityIndicatorView()
       tableView = ListTableView()
+      view.addSubview(tableView)
+      view.addSubview(activityView)
       
       tableView.frame = self.view.frame
       tableView.separatorStyle = .none
-      
-      view.addSubview(tableView)
-      view.addSubview(activityView)
+      tableView.rowHeight = UITableView.automaticDimension
+      tableView.estimatedRowHeight = 600
       
       configureActivityView()
       doSomething()

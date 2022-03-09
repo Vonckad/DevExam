@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 class ListTableViewCell: UITableViewCell {
 
@@ -30,10 +31,22 @@ class ListTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
-    func addData(title: String, detail: String , date: String) {
+    func addData(title: String, detail: String , date: String, urlImage: String) {
         titleLabel.text = title
         detailLabel.text = detail
         dateLabel.text = date
+        loadImage(urlImage)
+    }
+    
+    func cancelDownloadTask() {
+        myImageView.kf.cancelDownloadTask()
+    }
+    
+    private func loadImage(_ url: String){
+        guard let urlImage = URL(string: "http://dev-exam.l-tech.ru\(url)") else { return }
+//        print("http://dev-exam.l-tech.ru\(url)")
+        myImageView.kf.indicatorType = .activity
+        myImageView.kf.setImage(with: urlImage)
     }
 
 }
@@ -50,35 +63,38 @@ extension ListTableViewCell {
         contentView.addSubview(detailLabel)
         contentView.addSubview(dateLabel)
 
-        titleLabel.font = UIFont.preferredFont(forTextStyle: .caption1)
-        titleLabel.adjustsFontForContentSizeCategory = true
         titleLabel.numberOfLines = 0
+        titleLabel.sizeToFit()
         
-        detailLabel.font = UIFont.preferredFont(forTextStyle: .caption2)
-        detailLabel.adjustsFontForContentSizeCategory = true
         detailLabel.numberOfLines = 0
-
-        myImageView.layer.borderColor = UIColor.black.cgColor
-        myImageView.layer.borderWidth = 1
-        myImageView.layer.cornerRadius = 4
+        detailLabel.sizeToFit()
+        
+//        myImageView.layer.borderColor = UIColor.black.cgColor
+//        myImageView.layer.borderWidth = 1
+//        myImageView.layer.cornerRadius = 4
         myImageView.backgroundColor = UIColor.systemBlue
         
         let spacing = CGFloat(8)
         NSLayoutConstraint.activate([
             myImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: spacing),
-//            myImageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: spacing),
+//            myImageView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
             myImageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: spacing),
-            myImageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -spacing),
+
             myImageView.widthAnchor.constraint(equalToConstant: 64),
+            myImageView.heightAnchor.constraint(equalToConstant: 64),
 
             titleLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: spacing),
-            titleLabel.leftAnchor.constraint(equalTo: myImageView.leftAnchor, constant: spacing),
-            titleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: spacing),
+            titleLabel.leftAnchor.constraint(equalTo: myImageView.rightAnchor, constant: spacing),
+            titleLabel.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -spacing),
 
             detailLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: spacing),
-            detailLabel.leftAnchor.constraint(equalTo: myImageView.leftAnchor, constant: spacing),
-            detailLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: spacing),
-            detailLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: spacing)
+            detailLabel.leftAnchor.constraint(equalTo: myImageView.rightAnchor, constant: spacing),
+            detailLabel.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -spacing),
+            
+            dateLabel.topAnchor.constraint(equalTo: detailLabel.bottomAnchor, constant: spacing),
+            dateLabel.leftAnchor.constraint(equalTo: myImageView.rightAnchor, constant: spacing),
+            dateLabel.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -spacing),
+            dateLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -spacing),
             ])
     }
 }
