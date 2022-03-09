@@ -40,6 +40,8 @@ class MainInteractor: MainBusinessLogic, MainDataStore
       case .getList:
 //          loadList()
           timerRequest()
+      case .sortList(byDate: let bool):
+          presenter?.presentSomething(response: .presentList(sortList(list: list, byDate: bool)))
 //      case .presentDetailVC(indexPath: let indexPath):
 //          presenter?.presentSomething(response: .presentDetailVC(getDataDetailVC(indexPath: indexPath)))
       }
@@ -61,9 +63,14 @@ class MainInteractor: MainBusinessLogic, MainDataStore
             }
     }
     
+    private func sortList(list: [ListModel], byDate: Bool) -> [ListModel]{
+        return byDate ? list.sorted(by: {$0.date < $1.date}) : list.sorted(by: {$0.id < $1.id})
+    }
+    
 //    private func getDataDetailVC(indexPath: IndexPath) -> ListModel{
 //        return list[indexPath.row]
 //    }
+    
     
     private func timerRequest() { //так себе решение //надо подумать
         loadList { isLoad in

@@ -24,6 +24,7 @@ class MainViewController: UIViewController, MainDisplayLogic
   var tableView: ListTableView!
   var button: UIButton!
   var item: UIBarButtonItem!
+  var switchSort: UISwitch!
     
   // MARK: Object lifecycle
   
@@ -89,6 +90,10 @@ class MainViewController: UIViewController, MainDisplayLogic
       navigationController?.navigationBar.tintColor = .gray
       self.navigationItem.rightBarButtonItem = item
       
+      switchSort = UISwitch()
+      switchSort.addTarget(self, action: #selector(switchAction), for: .valueChanged)
+      navigationItem.leftBarButtonItem = UIBarButtonItem(customView: switchSort)
+      
       tableView = ListTableView()
       view.addSubview(tableView)
       tableView.frame = self.view.frame
@@ -103,6 +108,12 @@ class MainViewController: UIViewController, MainDisplayLogic
   
   // MARK: Do something
   
+  @objc
+    func switchAction() {
+        interactor?.doSomething(request: .sortList(byDate: !switchSort.isOn))
+    }
+    
+    
   @objc
     func refreshData() {
         doSomething()

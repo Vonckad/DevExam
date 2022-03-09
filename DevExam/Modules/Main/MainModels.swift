@@ -22,6 +22,7 @@ enum Main
     {
         enum RequestType {
             case getList
+            case sortList(byDate: Bool)
 //            case presentDetailVC(indexPath: IndexPath)
         }
     }
