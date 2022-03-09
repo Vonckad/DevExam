@@ -22,6 +22,7 @@ class MainViewController: UIViewController, MainDisplayLogic
   var interactor: MainBusinessLogic?
   var router: (NSObjectProtocol & MainRoutingLogic & MainDataPassing)?
   var tableView: ListTableView!
+  var activityView: UIActivityIndicatorView!
     
   // MARK: Object lifecycle
   
@@ -70,13 +71,21 @@ class MainViewController: UIViewController, MainDisplayLogic
   override func viewDidLoad()
   {
     super.viewDidLoad()
+      
       view.backgroundColor = .white
       self.title = "DevExam"
+      
+      activityView = UIActivityIndicatorView()
       tableView = ListTableView()
+      
       tableView.frame = self.view.frame
       tableView.separatorStyle = .none
+      
       view.addSubview(tableView)
-    doSomething()
+      view.addSubview(activityView)
+      
+      configureActivityView()
+      doSomething()
   }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -91,6 +100,8 @@ class MainViewController: UIViewController, MainDisplayLogic
   func doSomething()
   {
       interactor?.doSomething(request: .getList)
+      stopActivity(false)
+      
   }
   
     func displaySomething(viewModel: Main.Something.ViewModel.viewModelData)
@@ -99,6 +110,7 @@ class MainViewController: UIViewController, MainDisplayLogic
       case .list(let list):
           tableView.cells = list
           tableView.reloadData()
+          self.stopActivity(true)
       case .showAlert(let message):
           createAlert(message: message)
       }
@@ -107,8 +119,21 @@ class MainViewController: UIViewController, MainDisplayLogic
     private func createAlert(message: String) {
         let alert = UIAlertController(title: "Error", message: message, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { _ in
+            self.stopActivity(true)
             self.interactor?.doSomething(request: .getList)
+            self.stopActivity(false)
         }))
         present(alert, animated: true)
+    }
+    
+    private func configureActivityView() {
+        activityView.translatesAutoresizingMaskIntoConstraints = false
+        activityView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        activityView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+    }
+    
+    private func stopActivity(_ bool: Bool) {
+        bool ? activityView.stopAnimating() : activityView.startAnimating()
+        activityView.isHidden = bool
     }
 }
