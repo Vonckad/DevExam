@@ -25,6 +25,7 @@ class MainViewController: UIViewController, MainDisplayLogic
   var button: UIButton!
   var item: UIBarButtonItem!
   var switchSort: UISwitch!
+  var segmentControl: UISegmentedControl!
     
   // MARK: Object lifecycle
   
@@ -73,32 +74,7 @@ class MainViewController: UIViewController, MainDisplayLogic
   override func viewDidLoad()
   {
     super.viewDidLoad()
-      
-      view.backgroundColor = .white
-      self.title = "DevExam"
-      navigationItem.backButtonTitle = ""
-      view.backgroundColor = UIColor(red: 238/255, green: 235/255, blue: 248/255, alpha: 1)
-      
-      button = UIButton()
-      button.setImage(UIImage(named: "refresh"), for: .normal)
-      button.imageView?.contentMode = .scaleAspectFit
-      button.addTarget(self, action: #selector(refreshData), for: .touchUpInside)
-      item = UIBarButtonItem(customView: button)
-      
-      navigationController?.navigationBar.titleTextAttributes = [.foregroundColor:UIColor.black, .font: UIFont.systemFont(ofSize: 24)]
-      navigationController?.navigationBar.isOpaque = true
-      navigationController?.navigationBar.tintColor = .gray
-      self.navigationItem.rightBarButtonItem = item
-      
-      switchSort = UISwitch()
-      switchSort.addTarget(self, action: #selector(switchAction), for: .valueChanged)
-      navigationItem.leftBarButtonItem = UIBarButtonItem(customView: switchSort)
-      
-      tableView = ListTableView()
-      view.addSubview(tableView)
-      tableView.frame = self.view.frame
-      tableView.listDelegate = self
-      
+      setupUI()
       doSomething()
   }
     
@@ -110,9 +86,8 @@ class MainViewController: UIViewController, MainDisplayLogic
   
   @objc
     func switchAction() {
-        interactor?.doSomething(request: .sortList(byDate: !switchSort.isOn))
+        interactor?.doSomething(request: .sortList(byDate: segmentControl.selectedSegmentIndex != 0))
     }
-    
     
   @objc
     func refreshData() {
@@ -134,8 +109,6 @@ class MainViewController: UIViewController, MainDisplayLogic
           self.stopActivity(true)
       case .showAlert(let message):
           createAlert(message: message)
-//      case .showDetailVC(let data):
-//          router?.routeToDetailVC(indexPath: data)
       }
   }
     
@@ -154,6 +127,7 @@ class MainViewController: UIViewController, MainDisplayLogic
         tableView.alpha = bool ? 1.0 : 0.5
         tableView.allowsSelection = bool
         item.isEnabled = bool
+        segmentControl.isEnabled = bool
         animateBarButton(bool)
     }
     
@@ -179,7 +153,49 @@ class MainViewController: UIViewController, MainDisplayLogic
 
 extension MainViewController: ListTableViewDelegate {
     func selectCell(indexPath: IndexPath) {
-//        interactor?.doSomething(request: .presentDetailVC(indexPath: indexPath))
         router?.routeToDetailVC(indexPath: indexPath)
+    }
+}
+
+extension MainViewController {
+    private func setupUI() {
+        view.backgroundColor = .white
+        self.title = "DevExam"
+        view.backgroundColor = UIColor(red: 238/255, green: 235/255, blue: 248/255, alpha: 1)
+        
+        button = UIButton()
+        button.setImage(UIImage(named: "refresh"), for: .normal)
+        button.imageView?.contentMode = .scaleAspectFit
+        button.addTarget(self, action: #selector(refreshData), for: .touchUpInside)
+        item = UIBarButtonItem(customView: button)
+       
+        navigationItem.backButtonTitle = ""
+        navigationController?.navigationBar.titleTextAttributes = [.foregroundColor:UIColor.black, .font: UIFont.systemFont(ofSize: 24)]
+        navigationController?.navigationBar.isOpaque = true
+        navigationController?.navigationBar.isTranslucent = true
+        navigationController?.navigationBar.tintColor = .gray
+        self.navigationItem.rightBarButtonItem = item
+        
+        segmentControl = UISegmentedControl(items: ["Server sort", "By date sort"])
+        segmentControl.selectedSegmentIndex = 0
+        segmentControl.addTarget(self, action: #selector(switchAction), for: .valueChanged)
+        segmentControl.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(segmentControl)
+        
+        tableView = ListTableView()
+        view.addSubview(tableView)
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        tableView.listDelegate = self
+        
+        NSLayoutConstraint.activate([
+          segmentControl.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+          segmentControl.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor),
+          segmentControl.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor, constant: 8),
+          segmentControl.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor, constant: -8),
+          tableView.topAnchor.constraint(equalTo: segmentControl.bottomAnchor, constant: 4),
+          tableView.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor),
+          tableView.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor),
+          tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
+        ])
     }
 }

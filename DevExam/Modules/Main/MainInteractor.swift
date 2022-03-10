@@ -28,6 +28,7 @@ class MainInteractor: MainBusinessLogic, MainDataStore
   var presenter: MainPresentationLogic?
   var worker: MainWorker?
   var list: [ListModel] = []
+  var sortBool = false
   
   // MARK: Do something
   
@@ -41,9 +42,8 @@ class MainInteractor: MainBusinessLogic, MainDataStore
 //          loadList()
           timerRequest()
       case .sortList(byDate: let bool):
+          sortBool = bool
           presenter?.presentSomething(response: .presentList(sortList(list: list, byDate: bool)))
-//      case .presentDetailVC(indexPath: let indexPath):
-//          presenter?.presentSomething(response: .presentDetailVC(getDataDetailVC(indexPath: indexPath)))
       }
   }
     
@@ -53,7 +53,7 @@ class MainInteractor: MainBusinessLogic, MainDataStore
                 switch response.result {
                 case .success(let list):
                     self.list = list
-                    self.presenter?.presentSomething(response: .presentList(list))
+                    self.presenter?.presentSomething(response: .presentList(self.sortList(list: list, byDate: self.sortBool)))
                     isLoad(true)
                 case .failure(let error):
                     self.presenter?.presentSomething(response: .presentAlert("Error load list = \(error)"))
@@ -64,13 +64,9 @@ class MainInteractor: MainBusinessLogic, MainDataStore
     }
     
     private func sortList(list: [ListModel], byDate: Bool) -> [ListModel]{
-        return byDate ? list.sorted(by: {$0.date < $1.date}) : list.sorted(by: {$0.id < $1.id})
+        self.list = byDate ? list.sorted(by: {$0.date < $1.date}) : list.sorted(by: {$0.id < $1.id})
+        return self.list
     }
-    
-//    private func getDataDetailVC(indexPath: IndexPath) -> ListModel{
-//        return list[indexPath.row]
-//    }
-    
     
     private func timerRequest() { //так себе решение //надо подумать
         loadList { isLoad in
