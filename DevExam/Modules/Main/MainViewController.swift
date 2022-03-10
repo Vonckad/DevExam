@@ -24,7 +24,6 @@ class MainViewController: UIViewController, MainDisplayLogic
   var tableView: ListTableView!
   var button: UIButton!
   var item: UIBarButtonItem!
-  var switchSort: UISwitch!
   var segmentControl: UISegmentedControl!
     
   // MARK: Object lifecycle
@@ -85,7 +84,7 @@ class MainViewController: UIViewController, MainDisplayLogic
   // MARK: Do something
   
   @objc
-    func switchAction() {
+    func segmentControlAction() {
         interactor?.doSomething(request: .sortList(byDate: segmentControl.selectedSegmentIndex != 0))
     }
     
@@ -178,7 +177,7 @@ extension MainViewController {
         
         segmentControl = UISegmentedControl(items: ["Server sort", "By date sort"])
         segmentControl.selectedSegmentIndex = 0
-        segmentControl.addTarget(self, action: #selector(switchAction), for: .valueChanged)
+        segmentControl.addTarget(self, action: #selector(segmentControlAction), for: .valueChanged)
         segmentControl.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(segmentControl)
         

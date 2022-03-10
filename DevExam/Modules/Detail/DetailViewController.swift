@@ -56,7 +56,6 @@ extension DetailViewController {
         titleLabel.textColor = .black
         descriptionLabel.translatesAutoresizingMaskIntoConstraints = false
         descriptionLabel.textColor = .black
-        
         imageView.contentMode = .scaleAspectFit
         descriptionLabel.numberOfLines = 0
         
@@ -64,6 +63,7 @@ extension DetailViewController {
         let spacing = CGFloat(16)
         
         NSLayoutConstraint.activate([
+            imageView.heightAnchor.constraint(equalToConstant: view.frame.height / 3),
             imageView.topAnchor.constraint(equalTo: guide.topAnchor, constant: spacing),
             imageView.leftAnchor.constraint(equalTo: guide.leftAnchor, constant: spacing),
             imageView.rightAnchor.constraint(equalTo: guide.rightAnchor, constant: -spacing),
@@ -74,7 +74,8 @@ extension DetailViewController {
             
             descriptionLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: spacing),
             descriptionLabel.leftAnchor.constraint(equalTo: guide.leftAnchor, constant: spacing),
-            descriptionLabel.rightAnchor.constraint(equalTo: guide.rightAnchor, constant: -spacing)
+            descriptionLabel.rightAnchor.constraint(equalTo: guide.rightAnchor, constant: -spacing),
+            descriptionLabel.bottomAnchor.constraint(lessThanOrEqualTo: guide.bottomAnchor, constant: -spacing)
         ])
     }
 }
