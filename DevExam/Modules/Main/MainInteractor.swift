@@ -39,7 +39,6 @@ class MainInteractor: MainBusinessLogic, MainDataStore
       
       switch request {
       case .getList:
-//          loadList()
           timerRequest()
       case .sortList(byDate: let bool):
           sortBool = bool
@@ -68,11 +67,19 @@ class MainInteractor: MainBusinessLogic, MainDataStore
         return self.list
     }
     
-    private func timerRequest() { //так себе решение //надо подумать
+    var myTimer = Timer.scheduledTimer(withTimeInterval: 20.0, repeats: false) { _ in
+        print("timer.start 1")
+    }
+    
+    private func timerRequest() {
+        print("timerRequest")
+        myTimer.invalidate()
         loadList { isLoad in
+            print("isLoad")
             if isLoad {
-                Timer.scheduledTimer(withTimeInterval: 20.0, repeats: false) { timer in
-                    print("timer fired!")
+                print("timer.start 2")
+                self.myTimer = Timer.scheduledTimer(withTimeInterval: 20.0, repeats: false) { _ in
+                    print("timer.finish 2")
                     self.timerRequest()
                 }
             }
