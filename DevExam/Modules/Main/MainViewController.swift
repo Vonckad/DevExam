@@ -179,6 +179,11 @@ extension MainViewController {
         segmentControl.selectedSegmentIndex = 0
         segmentControl.addTarget(self, action: #selector(segmentControlAction), for: .valueChanged)
         segmentControl.translatesAutoresizingMaskIntoConstraints = false
+        if #available(iOS 13.0, *) {
+            segmentControl.overrideUserInterfaceStyle = .light
+        } else {
+            segmentControl.setTitleTextAttributes([.foregroundColor : UIColor.black], for: [.normal])
+        }
         view.addSubview(segmentControl)
         
         tableView = ListTableView()
